@@ -1,0 +1,28 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: scroll;
+}
+label {
+    cursor: pointer;
+}
+#root {
+    margin: auto;
+    max-width: 1280px;
+}
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #121212;
+}
+::-webkit-scrollbar-thumb {
+    background: #202020;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #121212;
+}
+::-webkit-scrollbar-corner {
+    background: #111111;
+}
