@@ -1,39 +1,39 @@
 import { QueryClient, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { VibeDataType, VibeType } from '@/types/types'
+import { ThreadDataType, ThreadType } from '@/types/types'
 
 import API from '@/networks/api'
 import useCircleToast from '@/hooks/useCircleToast'
 
-interface useVibesParams {
+interface useThreadsParams {
     onClose?: () => void
 }
 
-function useVibes(
-    params: useVibesParams = {}
-): [VibeType[] | undefined, (data: VibeDataType) => Promise<void>, (targetId: number) => void] {
+function useThreads(
+    params: useThreadsParams = {}
+): [ThreadType[] | undefined, (data: ThreadDataType) => Promise<void>, (targetId: number) => void] {
     const createToast = useCircleToast()
     const queryClient: QueryClient = useQueryClient()
 
-    const { data: vibes } = useQuery<VibeType[]>({
-        queryKey: ['vibes'],
+    const { data: threads } = useQuery<ThreadType[]>({
+        queryKey: ['threads'],
         queryFn: API.GET_ALL_VIBES,
     })
 
-    const postVibe = useMutation({
+    const postThread = useMutation({
         mutationFn: POST_VIBE,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['vibes'] })
+            queryClient.invalidateQueries({ queryKey: ['threads'] })
         },
     })
 
-    const deleteVibe = useMutation({
+    const deleteThread = useMutation({
         mutationFn: DELETE_VIBE,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['vibes'] })
+            queryClient.invalidateQueries({ queryKey: ['threads'] })
         },
     })
 
-    async function onPost(data: VibeDataType): Promise<void> {
+    async function onPost(data: ThreadDataType): Promise<void> {
         const badLabels = await API.DETECT_SENTIMENT(data.content)
 
         const formData: FormData = new FormData()
@@ -42,7 +42,7 @@ function useVibes(
         formData.append('image', data.image ? data.image[0] : null)
         formData.append('badLabels', JSON.stringify(badLabels))
 
-        postVibe.mutate(formData)
+        postThread.mutate(formData)
 
         if (params.onClose) {
             params.onClose()
@@ -50,30 +50,30 @@ function useVibes(
     }
 
     function onDelete(targetId: number): void {
-        deleteVibe.mutate(targetId)
+        deleteThread.mutate(targetId)
     }
 
     async function POST_VIBE(data: FormData): Promise<string> {
         const postVIbe: Promise<string> = API.POST_VIBE(data)
         createToast(postVIbe, {
-            title: 'Post Vibe',
-            message: 'Vibe successfully posted!',
+            title: 'Post Thread',
+            message: 'Thread successfully posted!',
         })
 
         return postVIbe
     }
 
-    async function DELETE_VIBE(targetId: number): Promise<VibeType> {
-        const deleteVibe: Promise<VibeType> = API.DELETE_VIBE(targetId)
-        createToast(deleteVibe, {
-            title: 'Delete Vibe',
-            message: 'Vibe successfully deleted!',
+    async function DELETE_VIBE(targetId: number): Promise<ThreadType> {
+        const deleteThread: Promise<ThreadType> = API.DELETE_VIBE(targetId)
+        createToast(deleteThread, {
+            title: 'Delete Thread',
+            message: 'Thread successfully deleted!',
         })
 
-        return deleteVibe
+        return deleteThread
     }
 
-    return [vibes, onPost, onDelete]
+    return [threads, onPost, onDelete]
 }
 
-export { useVibes }
+export { useThreads }

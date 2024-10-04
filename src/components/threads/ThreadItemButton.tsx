@@ -2,7 +2,7 @@ import { Text, Button, Box } from '@chakra-ui/react'
 import { forwardRef, ReactNode } from 'react'
 import { fontSizing } from '@/styles/style'
 
-interface VibeItemButtonProps {
+interface ThreadItemButtonProps {
     onClick?: () => void
     icon: ReactNode
     value?: number
@@ -12,7 +12,7 @@ interface VibeItemButtonProps {
     ml?: string
 }
 
-const VibeItemButton = forwardRef<HTMLButtonElement, VibeItemButtonProps>(
+const ThreadItemButton = forwardRef<HTMLButtonElement, ThreadItemButtonProps>(
     ({ icon, value, color, hoverColor, atLeft, ml, onClick }, ref) => {
         function onClickHandler(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
             e.stopPropagation()
@@ -47,4 +47,4 @@ const VibeItemButton = forwardRef<HTMLButtonElement, VibeItemButtonProps>(
     }
 )
 
-export default VibeItemButton
+export default ThreadItemButton

@@ -11,11 +11,11 @@ export interface UserType {
     totalFollower: number
     totalFollowing: number
     isFollowed: boolean
-    vibes: VibeType[]
+    threads: ThreadType[]
     filterContent: boolean
 }
 
-export interface VibeType {
+export interface ThreadType {
     id: number
     content: string
     image: string | null
@@ -28,8 +28,8 @@ export interface VibeType {
     author: UserType | undefined
 }
 
-export interface DetailedVibeType extends VibeType {
-    replies: VibeType[]
+export interface DetailedThreadType extends ThreadType {
+    replies: ThreadType[]
     likes: LikeType[]
 }
 
@@ -96,7 +96,7 @@ export interface EditedUserType {
     bio: string | null
 }
 
-export interface VibeDataType {
+export interface ThreadDataType {
     content: string
     badLabels: string[]
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

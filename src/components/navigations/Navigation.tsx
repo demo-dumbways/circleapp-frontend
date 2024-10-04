@@ -8,12 +8,12 @@ import API from '@/networks/api'
 import NavigationItem from './NavigationItem'
 import SolidButton from '@/components/buttons/SolidButton'
 import BrandModal from '@/components/modals/BrandModal'
-import NewVibe from '@/components/vibes/NewVibe'
-import { useVibes } from '@/hooks/useVibes'
+import NewThread from '@/components/threads/NewThread'
+import { useThreads } from '@/hooks/useThreads'
 
 function Navigation() {
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const [, onPost] = useVibes({ onClose })
+    const [, onPost] = useThreads({ onClose })
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -48,13 +48,13 @@ function Navigation() {
             <Link to={'/me'}>
                 <NavigationItem icon={<BiUser />} text={'Profile'} />
             </Link>
-            <SolidButton onClick={onOpen} text={'Create Vibe'} py={'1.5rem'} />
+            <SolidButton onClick={onOpen} text={'Create Thread'} py={'1.5rem'} />
             <Spacer />
 
             <NavigationItem icon={<BiLogOut />} text={'Logout'} onLogout={onLogout} />
             <BrandModal isOpen={isOpen} onClose={onClose} size={'xl'}>
                 <Box pt={'.5rem'}>
-                    <NewVibe
+                    <NewThread
                         placeholder={"What's on your mind?"}
                         imagePreviewId={'atModal'}
                         onPost={onPost}

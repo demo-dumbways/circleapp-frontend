@@ -1,22 +1,22 @@
-import { DetailedVibeType, UserType, VibeDataType } from '@/types/types'
+import { DetailedThreadType, UserType, ThreadDataType } from '@/types/types'
 import { Box } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 
 import API from '@/networks/api'
-import VibeList from '@/components/vibes/VibeList'
-import VibeItem from '@/components/vibes/VibeItem'
-import NewVibe from '@/components/vibes/NewVibe'
+import ThreadList from '@/components/threads/ThreadList'
+import ThreadItem from '@/components/threads/ThreadItem'
+import NewThread from '@/components/threads/NewThread'
 import EmptyMessage from '@/components/utils/EmptyMessage'
 import CircleSpinner from '@/components/utils/CircleSpinner'
 
-interface VibeDetailProps {
-    onReply: (data: VibeDataType) => void
-    vibe: DetailedVibeType
+interface ThreadDetailProps {
+    onReply: (data: ThreadDataType) => void
+    thread: DetailedThreadType
     noImage?: boolean
 }
 
-function VibeDetail({ vibe, onReply, noImage }: VibeDetailProps) {
-    const { replies, ...rest } = vibe
+function ThreadDetail({ thread, onReply, noImage }: ThreadDetailProps) {
+    const { replies, ...rest } = thread
 
     const [users, setUsers] = useState<UserType[]>([])
 
@@ -39,15 +39,15 @@ function VibeDetail({ vibe, onReply, noImage }: VibeDetailProps) {
     if (!replies.length)
         return (
             <Box>
-                <VibeItem vibe={rest} noImage={noImage && noImage} repliesTarget />
-                <NewVibe
+                <ThreadItem thread={rest} noImage={noImage && noImage} repliesTarget />
+                <NewThread
                     placeholder={'Post your reply'}
                     onPost={onReply}
                     imagePreviewId={'atDetail'}
                     buttonText={'Reply'}
                 />
                 <EmptyMessage
-                    header={'No replies to this vibe so far.'}
+                    header={'No replies to this thread so far.'}
                     body={'Share your thoughts first!'}
                 />
             </Box>
@@ -55,15 +55,15 @@ function VibeDetail({ vibe, onReply, noImage }: VibeDetailProps) {
 
     return (
         <Box>
-            <VibeItem vibe={rest} noImage={noImage && noImage} isReply />
-            <NewVibe
+            <ThreadItem thread={rest} noImage={noImage && noImage} isReply />
+            <NewThread
                 placeholder={'Post your reply'}
                 onPost={onReply}
                 imagePreviewId={'atDetail'}
                 buttonText={'Reply'}
             />
             {users.length ? (
-                <VibeList vibes={repliesWithAuthor} noLink />
+                <ThreadList threads={repliesWithAuthor} noLink />
             ) : (
                 <Box pt={'3rem'}>
                     <CircleSpinner />
@@ -73,4 +73,4 @@ function VibeDetail({ vibe, onReply, noImage }: VibeDetailProps) {
     )
 }
 
-export default VibeDetail
+export default ThreadDetail

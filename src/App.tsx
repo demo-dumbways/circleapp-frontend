@@ -10,7 +10,7 @@ import './assets/base.css'
 import API from '@/networks/api'
 import CircleLayout from './layouts/CircleLayout'
 import HomePage from './pages/HomePage'
-import VibeDetailPage from './pages/VibeDetailPage'
+import ThreadDetailPage from './pages/ThreadDetailPage'
 import MePage from './pages/MePage'
 import SearchPage from '@/pages/SearchPage'
 import LoginPage from '@/pages/LoginPage'
@@ -90,7 +90,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<CircleLayout />}>
                     <Route index element={<HomePage />} />
-                    <Route path="/vibe/:id" element={<VibeDetailPage />} />
+                    <Route path="/thread/:id" element={<ThreadDetailPage />} />
                     <Route path="/user/:id" element={<ProfilePage />} />
                     <Route path="/me" element={<MePage />} />
                     <Route path="/follows" element={<FollowsPage />} />

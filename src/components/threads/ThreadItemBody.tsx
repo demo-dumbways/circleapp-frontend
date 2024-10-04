@@ -4,30 +4,30 @@ import { useSearchParams } from 'react-router-dom'
 
 import GhostButton from '@/components/buttons/GhostButton'
 
-interface VibeItemBodyProps {
-    vibeId: number
-    vibeContent: string
-    vibeImage: string | null
+interface ThreadItemBodyProps {
+    threadId: number
+    threadContent: string
+    threadImage: string | null
     onOpen: () => void
     noImage?: boolean
 }
 
-function VibeItemBody({ vibeContent, vibeId, vibeImage, noImage, onOpen }: VibeItemBodyProps) {
+function ThreadItemBody({ threadContent, threadId, threadImage, noImage, onOpen }: ThreadItemBodyProps) {
     const [, setSearchParams] = useSearchParams()
 
     function onImageClick(): void {
-        setSearchParams({ vibeId: String(vibeId) })
+        setSearchParams({ threadId: String(threadId) })
 
         onOpen()
     }
 
     return (
         <CardBody padding={0}>
-            <Text fontSize={fontSizing.small}>{vibeContent}</Text>
-            {!noImage && vibeImage && (
+            <Text fontSize={fontSizing.small}>{threadContent}</Text>
+            {!noImage && threadImage && (
                 <GhostButton onClick={onImageClick}>
                     <Image
-                        src={vibeImage}
+                        src={threadImage}
                         objectFit={'cover'}
                         maxWidth={'100%'}
                         width={'auto'}
@@ -41,4 +41,4 @@ function VibeItemBody({ vibeContent, vibeId, vibeImage, noImage, onOpen }: VibeI
     )
 }
 
-export default VibeItemBody
+export default ThreadItemBody

@@ -7,21 +7,21 @@ import { useSearchParams } from 'react-router-dom'
 
 import BrandModal from '@/components/modals/BrandModal'
 import GhostButton from '@/components/buttons/GhostButton'
-import VibeDetail from '@/components/vibes/VibeDetail'
+import ThreadDetail from '@/components/threads/ThreadDetail'
 
 interface ImageModalProps {
     onClose: () => void
     isOpen: boolean
-    vibeImage: string | null
+    threadImage: string | null
 }
 
-function ImageModal({ isOpen, onClose, vibeImage }: ImageModalProps) {
+function ImageModal({ isOpen, onClose, threadImage }: ImageModalProps) {
     const [searchParams, setSearchParams] = useSearchParams()
 
-    const id: string | null = searchParams.get('vibeId')
+    const id: string | null = searchParams.get('threadId')
     const targetId: number = id ? +id : NaN
 
-    const [vibe, onReply] = useReplies(targetId)
+    const [thread, onReply] = useReplies(targetId)
     const [hideList, setHideList] = useState<boolean>(true)
 
     function onCloseModal(): void {
@@ -30,11 +30,11 @@ function ImageModal({ isOpen, onClose, vibeImage }: ImageModalProps) {
         onClose()
     }
 
-    function onHideVibe(): void {
+    function onHideThread(): void {
         setHideList((oldState) => !oldState)
     }
 
-    if (vibe) {
+    if (thread) {
         return (
             <BrandModal isOpen={isOpen} onClose={onClose} size={'full'}>
                 <Flex height={'100vh'}>
@@ -46,7 +46,7 @@ function ImageModal({ isOpen, onClose, vibeImage }: ImageModalProps) {
                         flex={2}
                     >
                         <Image
-                            src={vibeImage ? vibeImage : undefined}
+                            src={threadImage ? threadImage : undefined}
                             width={'auto'}
                             height={'auto'}
                             maxWidth={'100%'}
@@ -66,7 +66,7 @@ function ImageModal({ isOpen, onClose, vibeImage }: ImageModalProps) {
                                     <BiExitFullscreen />
                                 </Box>
                             </GhostButton>
-                            <GhostButton onClick={onHideVibe}>
+                            <GhostButton onClick={onHideThread}>
                                 <Box color={'circle.font'} fontSize={fontSizing.bigger}>
                                     {hideList ? (
                                         <BiSolidArrowFromLeft />
@@ -85,7 +85,7 @@ function ImageModal({ isOpen, onClose, vibeImage }: ImageModalProps) {
                             overflow={'scroll'}
                             flex={1}
                         >
-                            <VibeDetail vibe={vibe} onReply={onReply} noImage />
+                            <ThreadDetail thread={thread} onReply={onReply} noImage />
                         </Box>
                     )}
                 </Flex>

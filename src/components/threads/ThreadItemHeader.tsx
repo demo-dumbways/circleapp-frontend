@@ -5,38 +5,38 @@ import { BiDotsVerticalRounded } from 'react-icons/bi'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/redux'
 import { UserType } from '@/types/types'
-import { useVibes } from '@/hooks/useVibes'
+import { useThreads } from '@/hooks/useThreads'
 import { useReplies } from '@/hooks/useReplies'
 import { useNavigate } from 'react-router-dom'
 
-import VibeItemButton from '@/components/vibes/VibeItemButton'
+import ThreadItemButton from '@/components/threads/ThreadItemButton'
 import GhostButton from '@/components/buttons/GhostButton'
 
-interface VibeItemHeaderProps {
+interface ThreadItemHeaderProps {
     name: string
     username: string
     date: string
     author: UserType
-    vibeId: number
+    threadId: number
     isReply?: boolean
     repliesTarget?: boolean
     authorId: number
 }
 
-function VibeItemHeader({
+function ThreadItemHeader({
     name,
     username,
     date,
     author,
-    vibeId,
+    threadId,
     isReply,
     repliesTarget,
     authorId,
-}: VibeItemHeaderProps) {
+}: ThreadItemHeaderProps) {
     const loggedUser = useSelector((states: RootState) => states.loggedUser.value)
 
     const navigate = useNavigate()
-    const [, , onDelete] = useVibes()
+    const [, , onDelete] = useThreads()
     const [, , onDeleteReply] = useReplies()
 
     function onProfileClick() {
@@ -65,7 +65,7 @@ function VibeItemHeader({
             {loggedUser && loggedUser.id === author.id && (
                 <Menu>
                     <MenuButton
-                        as={VibeItemButton}
+                        as={ThreadItemButton}
                         color={'circle.dark'}
                         icon={<BiDotsVerticalRounded fontSize={'1.5rem'} />}
                         hoverColor={'circle.accent'}
@@ -80,12 +80,12 @@ function VibeItemHeader({
                                 e.stopPropagation()
                                 if (repliesTarget) {
                                     navigate('/')
-                                    return onDelete(vibeId)
+                                    return onDelete(threadId)
                                 }
                                 if (isReply) {
-                                    return onDeleteReply(vibeId)
+                                    return onDeleteReply(threadId)
                                 }
-                                return onDelete(vibeId)
+                                return onDelete(threadId)
                             }}
                         >
                             Delete
@@ -97,4 +97,4 @@ function VibeItemHeader({
     )
 }
 
-export default VibeItemHeader
+export default ThreadItemHeader

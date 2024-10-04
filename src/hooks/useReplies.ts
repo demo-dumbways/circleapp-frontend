@@ -1,4 +1,4 @@
-import { DetailedVibeType, ReplyType, VibeDataType } from '@/types/types'
+import { DetailedThreadType, ReplyType, ThreadDataType } from '@/types/types'
 import { useQuery, useQueryClient, useMutation, QueryClient } from '@tanstack/react-query'
 
 import API from '@/networks/api'
@@ -6,12 +6,12 @@ import useCircleToast from '@/hooks/useCircleToast'
 
 function useReplies(
     targetId: number | null = null
-): [DetailedVibeType | null | undefined, (data: VibeDataType) => void, (targetId: number) => void] {
+): [DetailedThreadType | null | undefined, (data: ThreadDataType) => void, (targetId: number) => void] {
     const createToast = useCircleToast()
     const queryClient: QueryClient = useQueryClient()
 
-    const { data: vibe } = useQuery<DetailedVibeType | null>({
-        queryKey: ['vibe', targetId],
+    const { data: thread } = useQuery<DetailedThreadType | null>({
+        queryKey: ['thread', targetId],
         queryFn: () => {
             if (targetId) {
                 return API.GET_SINGLE_VIBE(targetId)
@@ -24,18 +24,18 @@ function useReplies(
     const postReply = useMutation({
         mutationFn: POST_REPLY,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['vibe'] })
+            queryClient.invalidateQueries({ queryKey: ['thread'] })
         },
     })
 
     const deleteReply = useMutation({
         mutationFn: DELETE_REPLY,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['vibe'] })
+            queryClient.invalidateQueries({ queryKey: ['thread'] })
         },
     })
 
-    async function onReply(data: VibeDataType): Promise<void> {
+    async function onReply(data: ThreadDataType): Promise<void> {
         const badLabels = await API.DETECT_SENTIMENT(data.content)
         const formData: FormData = new FormData()
 
@@ -74,7 +74,7 @@ function useReplies(
         return deleteReply
     }
 
-    return [vibe, onReply, onDelete]
+    return [thread, onReply, onDelete]
 }
 
 export { useReplies }

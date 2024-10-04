@@ -21,7 +21,7 @@ export const transparentHover = {
     opacity: '0.5',
 }
 
-export const vibeHover = {
+export const threadHover = {
     background: 'circle.backdropAccent',
     transition: 'background .5s ease-in-out',
 }

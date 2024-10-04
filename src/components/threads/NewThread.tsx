@@ -1,8 +1,8 @@
 import { Avatar, Flex, Spacer, Box, Divider, Input, FormControl } from '@chakra-ui/react'
 import { BiImageAdd } from 'react-icons/bi'
 import { useForm } from 'react-hook-form'
-import { VibeDataType } from '@/types/types'
-import { VibeSchema } from '@/validators/validator'
+import { ThreadDataType } from '@/types/types'
+import { ThreadSchema } from '@/validators/validator'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import ImagePreview from '@/components/utils/ImagePreview'
@@ -10,16 +10,16 @@ import { useSelector } from 'react-redux'
 import { RootState } from '@/redux'
 
 import SolidButton from '@/components/buttons/SolidButton'
-import VibeInput from '@/components/inputs/VibeInput'
+import ThreadInput from '@/components/inputs/ThreadInput'
 
-interface NewVibeProps {
-    onPost: (data: VibeDataType) => Promise<void> | void
+interface NewThreadProps {
+    onPost: (data: ThreadDataType) => Promise<void> | void
     placeholder: string
     buttonText?: string
     imagePreviewId: string
 }
 
-function NewVibe(props: NewVibeProps) {
+function NewThread(props: NewThreadProps) {
     const { placeholder, buttonText, imagePreviewId } = props
     const [imagePreview, setImagePreview] = useState<string>('')
     const loggedUser = useSelector((states: RootState) => states.loggedUser.value)
@@ -29,8 +29,8 @@ function NewVibe(props: NewVibeProps) {
         handleSubmit,
         formState: { errors },
         resetField,
-    } = useForm<VibeDataType>({
-        resolver: zodResolver(VibeSchema),
+    } = useForm<ThreadDataType>({
+        resolver: zodResolver(ThreadSchema),
     })
 
     function onImageChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -46,7 +46,7 @@ function NewVibe(props: NewVibeProps) {
             <Flex direction={'column'} justifyContent={'center'} gap={'1rem'}>
                 <Flex alignItems={'start'} gap={'1rem'} mx={'1rem'} mt={'1rem'}>
                     <Avatar src={loggedUser?.avatar} />
-                    <VibeInput
+                    <ThreadInput
                         placeholder={placeholder}
                         name={'content'}
                         register={register}
@@ -98,4 +98,4 @@ function NewVibe(props: NewVibeProps) {
     )
 }
 
-export default NewVibe
+export default NewThread

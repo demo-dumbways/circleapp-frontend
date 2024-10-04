@@ -51,14 +51,14 @@ export const ResetSchema: ZodType<ResetDataType> = z
         path: ['general'],
     })
 
-export const VibeSchema: ZodType = z.object({
+export const ThreadSchema: ZodType = z.object({
     content: z
         .string()
         .min(1, {
-            message: 'Vibe must not be empty.',
+            message: 'Thread must not be empty.',
         })
         .max(255, {
-            message: 'Vibe must be less than 255 chars.',
+            message: 'Thread must be less than 255 chars.',
         }),
     image: z.any(),
 })

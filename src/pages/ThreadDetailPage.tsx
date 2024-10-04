@@ -9,24 +9,24 @@ import ProfileCard from '@/components/cards/ProfileCard'
 import SuggestionCard from '@/components/cards/SuggestionCard'
 import DeveloperCard from '@/components/cards/DeveloperCard'
 import NavigationHeading from '@/components/navigations/NavigationHeading'
-import VibeDetail from '@/components/vibes/VibeDetail'
+import ThreadDetail from '@/components/threads/ThreadDetail'
 import CircleSpinner from '@/components/utils/CircleSpinner'
 
-function VibeDetailPage() {
+function ThreadDetailPage() {
     const { id }: Readonly<Params<string>> = useParams()
     const targetId = id ? +id : NaN
 
-    const [vibe, onReply] = useReplies(targetId)
+    const [thread, onReply] = useReplies(targetId)
 
     return (
         <Grid templateColumns={'repeat(19, 1fr)'}>
             <GridItem colSpan={12}>
                 <MainBar>
                     <Link to={'/'}>
-                        <NavigationHeading icon={<BiLeftArrowAlt />} text={'Vibe'} sticky />
+                        <NavigationHeading icon={<BiLeftArrowAlt />} text={'Thread'} sticky />
                     </Link>
-                    {vibe ? (
-                        <VibeDetail vibe={vibe} onReply={onReply} />
+                    {thread ? (
+                        <ThreadDetail thread={thread} onReply={onReply} />
                     ) : (
                         <Box pt={'3rem'} borderTop={'1px'} borderColor={'circle.darker'}>
                             <CircleSpinner />
@@ -45,4 +45,4 @@ function VibeDetailPage() {
     )
 }
 
-export default VibeDetailPage
+export default ThreadDetailPage

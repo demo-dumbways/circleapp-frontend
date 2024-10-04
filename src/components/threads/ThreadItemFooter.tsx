@@ -5,10 +5,10 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import API from '@/networks/api'
-import VibeItemButton from './VibeItemButton'
+import ThreadItemButton from './ThreadItemButton'
 
-interface VibeItemFooterProps {
-    vibeId: number
+interface ThreadItemFooterProps {
+    threadId: number
     totalLike: number
     totalReply: number
     isLiked: boolean
@@ -18,34 +18,34 @@ interface VibeItemFooterProps {
     badLabels: string[]
 }
 
-function VibeItemFooter({
-    vibeId,
+function ThreadItemFooter({
+    threadId,
     totalLike,
     totalReply,
     isLiked,
     badLabels,
-}: VibeItemFooterProps) {
-    const [isVibeLiked, setVibeLiked] = useState<boolean>(isLiked)
-    const [totalVibeLike, setTotalVibeLike] = useState<number>(totalLike)
+}: ThreadItemFooterProps) {
+    const [isThreadLiked, setThreadLiked] = useState<boolean>(isLiked)
+    const [totalThreadLike, setTotalThreadLike] = useState<number>(totalLike)
 
     const navigate = useNavigate()
 
     // optimistic updates
     async function onToggleLike() {
         try {
-            setVibeLiked((oldState) => !oldState)
-            setTotalVibeLike((oldState) => {
-                if (!isVibeLiked) {
+            setThreadLiked((oldState) => !oldState)
+            setTotalThreadLike((oldState) => {
+                if (!isThreadLiked) {
                     return oldState + 1
                 }
 
                 return oldState - 1
             })
 
-            await API.TOGGLE_LIKE(vibeId)
+            await API.TOGGLE_LIKE(threadId)
         } catch (error) {
-            setVibeLiked(isLiked)
-            setTotalVibeLike(totalLike)
+            setThreadLiked(isLiked)
+            setTotalThreadLike(totalLike)
         }
     }
 
@@ -53,19 +53,19 @@ function VibeItemFooter({
         <CardFooter padding={0} mt={'.5rem'}>
             {totalReply !== undefined && totalLike !== undefined && (
                 <Flex gap={'1rem'}>
-                    <VibeItemButton
+                    <ThreadItemButton
                         icon={<BiSolidHeart />}
-                        value={totalVibeLike}
-                        color={isVibeLiked ? 'circle.red' : 'circle.dark'}
-                        hoverColor={isVibeLiked ? 'circle.dark' : 'circle.red'}
+                        value={totalThreadLike}
+                        color={isThreadLiked ? 'circle.red' : 'circle.dark'}
+                        hoverColor={isThreadLiked ? 'circle.dark' : 'circle.red'}
                         onClick={onToggleLike}
                     />
-                    <VibeItemButton
+                    <ThreadItemButton
                         icon={<BiCommentDetail />}
                         value={totalReply}
                         color={'circle.dark'}
                         hoverColor={'circle.accent'}
-                        onClick={() => navigate(`/vibe/${vibeId}`)}
+                        onClick={() => navigate(`/thread/${threadId}`)}
                     />
                 </Flex>
             )}
@@ -84,7 +84,7 @@ function VibeItemFooter({
                     </Tooltip>
                 ) : (
                     <Tooltip
-                        label={'positive vibe'}
+                        label={'positive thread'}
                         fontSize={'sm'}
                         bg={'circle.green'}
                         placement={'top-end'}
@@ -99,4 +99,4 @@ function VibeItemFooter({
     )
 }
 
-export default VibeItemFooter
+export default ThreadItemFooter

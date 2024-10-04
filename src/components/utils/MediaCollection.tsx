@@ -1,4 +1,4 @@
-import { VibeType } from '@/types/types'
+import { ThreadType } from '@/types/types'
 import { Grid, Image, useDisclosure } from '@chakra-ui/react'
 import { useSearchParams } from 'react-router-dom'
 
@@ -7,20 +7,20 @@ import ImageModal from '@/components/modals/ImageModal'
 import EmptyMessage from '@/components/utils/EmptyMessage'
 
 interface MediaCollectionProps {
-    vibes: VibeType[]
+    threads: ThreadType[]
 }
 
-function MediaCollection({ vibes }: MediaCollectionProps) {
+function MediaCollection({ threads }: MediaCollectionProps) {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [, setSearchParams] = useSearchParams()
 
     function onImageClick(id: number): void {
-        setSearchParams({ vibeId: String(id) })
+        setSearchParams({ threadId: String(id) })
 
         onOpen()
     }
 
-    if (vibes.length) {
+    if (threads.length) {
         return (
             <Grid
                 templateColumns={'repeat(3, 1fr)'}
@@ -29,12 +29,12 @@ function MediaCollection({ vibes }: MediaCollectionProps) {
                 gap={'.5rem'}
                 padding={'1rem'}
             >
-                {vibes.map((vibe) => {
-                    if (vibe.image) {
+                {threads.map((thread) => {
+                    if (thread.image) {
                         return (
-                            <GhostButton onClick={() => onImageClick(vibe.id)} key={vibe.id}>
+                            <GhostButton onClick={() => onImageClick(thread.id)} key={thread.id}>
                                 <Image
-                                    src={vibe.image}
+                                    src={thread.image}
                                     height={'100%'}
                                     width={'100%'}
                                     objectFit={'cover'}
@@ -43,7 +43,7 @@ function MediaCollection({ vibes }: MediaCollectionProps) {
                                     <ImageModal
                                         isOpen={isOpen}
                                         onClose={onClose}
-                                        vibeImage={vibe.image}
+                                        threadImage={thread.image}
                                     />
                                 )}
                             </GhostButton>

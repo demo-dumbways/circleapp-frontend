@@ -13,7 +13,7 @@ import ProfileCardBody from '@/components/cards/ProfileCardBody'
 import ProfileCardFooter from '@/components/cards/ProfileCardFooter'
 import NavigationHeading from '@/components/navigations/NavigationHeading'
 import BrandTabs from '@/components/utils/BrandTabs'
-import VibeList from '@/components/vibes/VibeList'
+import ThreadList from '@/components/threads/ThreadList'
 import MediaCollection from '@/components/utils/MediaCollection'
 import CircleSpinner from '@/components/utils/CircleSpinner'
 
@@ -21,7 +21,7 @@ function MePage() {
     const loggedUser = useSelector((states: RootState) => states.loggedUser.value)
 
     if (loggedUser) {
-        const { username, name, bio, avatar, banner, totalFollower, totalFollowing, vibes } =
+        const { username, name, bio, avatar, banner, totalFollower, totalFollowing, threads } =
             loggedUser
 
         return (
@@ -54,10 +54,10 @@ function MePage() {
                             />
                         </Card>
                         <BrandTabs
-                            leftTitle={'Vibes'}
-                            leftContent={<VibeList vibes={vibes} />}
+                            leftTitle={'Threads'}
+                            leftContent={<ThreadList threads={threads} />}
                             rightTitle={'Media'}
-                            rightContent={<MediaCollection vibes={vibes} />}
+                            rightContent={<MediaCollection threads={threads} />}
                         />
                     </MainBar>
                 </GridItem>

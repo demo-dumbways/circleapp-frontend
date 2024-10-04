@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 import CONFIGS from '@/configs/configs'
 import {
-    DetailedVibeType,
+    DetailedThreadType,
     EditedUserType,
     FollowType,
     ForgotDataType,
@@ -11,7 +11,7 @@ import {
     ReplyType,
     ResetDataType,
     UserType,
-    VibeType,
+    ThreadType,
 } from '@/types/types'
 
 class API {
@@ -108,9 +108,9 @@ class API {
         }
     }
 
-    GET_ALL_VIBES = async (): Promise<VibeType[]> => {
+    GET_ALL_VIBES = async (): Promise<ThreadType[]> => {
         try {
-            const response = await axios.get(`${CONFIGS.BASE_URL}/vibes`, {
+            const response = await axios.get(`${CONFIGS.BASE_URL}/threads`, {
                 headers: {
                     Authorization: `Bearer ${this.GET_TOKEN()}`,
                 },
@@ -126,9 +126,9 @@ class API {
         }
     }
 
-    GET_SINGLE_VIBE = async (id: number): Promise<DetailedVibeType> => {
+    GET_SINGLE_VIBE = async (id: number): Promise<DetailedThreadType> => {
         try {
-            const response = await axios.get(`${CONFIGS.BASE_URL}/vibes/${id}`, {
+            const response = await axios.get(`${CONFIGS.BASE_URL}/threads/${id}`, {
                 headers: {
                     Authorization: `Bearer ${this.GET_TOKEN()}`,
                 },
@@ -146,7 +146,7 @@ class API {
 
     POST_VIBE = async (data: FormData): Promise<string> => {
         try {
-            const response: AxiosResponse = await axios.post(`${CONFIGS.BASE_URL}/vibes`, data, {
+            const response: AxiosResponse = await axios.post(`${CONFIGS.BASE_URL}/threads`, data, {
                 headers: {
                     Authorization: `Bearer ${this.GET_TOKEN()}`,
                 },
@@ -162,9 +162,9 @@ class API {
         }
     }
 
-    DELETE_VIBE = async (targetUd: number): Promise<VibeType> => {
+    DELETE_VIBE = async (targetUd: number): Promise<ThreadType> => {
         try {
-            const response = await axios.delete(`${CONFIGS.BASE_URL}/vibes/${targetUd}`, {
+            const response = await axios.delete(`${CONFIGS.BASE_URL}/threads/${targetUd}`, {
                 headers: {
                     Authorization: `Bearer ${this.GET_TOKEN()}`,
                 },

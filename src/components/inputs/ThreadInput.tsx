@@ -2,14 +2,14 @@ import { Collapse, FormControl, Text, Textarea } from '@chakra-ui/react'
 import { FieldError, UseFormRegister, FieldValues, Path } from 'react-hook-form'
 import { fontSizing } from '@/styles/style'
 
-interface VibeInputProps<T extends FieldValues> {
+interface ThreadInputProps<T extends FieldValues> {
     placeholder: string
     name: Path<T>
     register: UseFormRegister<T>
     error: FieldError | undefined
 }
 
-function VibeInput<T extends FieldValues>(props: VibeInputProps<T>) {
+function ThreadInput<T extends FieldValues>(props: ThreadInputProps<T>) {
     const { placeholder, name, error, register } = props
     const isCollapsed = error ? true : false
 
@@ -40,4 +40,4 @@ function VibeInput<T extends FieldValues>(props: VibeInputProps<T>) {
     )
 }
 
-export default VibeInput
+export default ThreadInput
