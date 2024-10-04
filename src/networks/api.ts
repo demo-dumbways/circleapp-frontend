@@ -108,7 +108,7 @@ class API {
         }
     }
 
-    GET_ALL_VIBES = async (): Promise<ThreadType[]> => {
+    GET_ALL_THREADS = async (): Promise<ThreadType[]> => {
         try {
             const response = await axios.get(`${CONFIGS.BASE_URL}/threads`, {
                 headers: {
@@ -126,7 +126,7 @@ class API {
         }
     }
 
-    GET_SINGLE_VIBE = async (id: number): Promise<DetailedThreadType> => {
+    GET_SINGLE_THREAD = async (id: number): Promise<DetailedThreadType> => {
         try {
             const response = await axios.get(`${CONFIGS.BASE_URL}/threads/${id}`, {
                 headers: {
@@ -144,7 +144,7 @@ class API {
         }
     }
 
-    POST_VIBE = async (data: FormData): Promise<string> => {
+    POST_THREAD = async (data: FormData): Promise<string> => {
         try {
             const response: AxiosResponse = await axios.post(`${CONFIGS.BASE_URL}/threads`, data, {
                 headers: {
@@ -162,7 +162,7 @@ class API {
         }
     }
 
-    DELETE_VIBE = async (targetUd: number): Promise<ThreadType> => {
+    DELETE_THREAD = async (targetUd: number): Promise<ThreadType> => {
         try {
             const response = await axios.delete(`${CONFIGS.BASE_URL}/threads/${targetUd}`, {
                 headers: {

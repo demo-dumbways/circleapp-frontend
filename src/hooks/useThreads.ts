@@ -16,18 +16,18 @@ function useThreads(
 
     const { data: threads } = useQuery<ThreadType[]>({
         queryKey: ['threads'],
-        queryFn: API.GET_ALL_VIBES,
+        queryFn: API.GET_ALL_THREADS,
     })
 
     const postThread = useMutation({
-        mutationFn: POST_VIBE,
+        mutationFn: POST_THREAD,
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['threads'] })
         },
     })
 
     const deleteThread = useMutation({
-        mutationFn: DELETE_VIBE,
+        mutationFn: DELETE_THREAD,
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['threads'] })
         },
@@ -53,18 +53,18 @@ function useThreads(
         deleteThread.mutate(targetId)
     }
 
-    async function POST_VIBE(data: FormData): Promise<string> {
-        const postVIbe: Promise<string> = API.POST_VIBE(data)
-        createToast(postVIbe, {
+    async function POST_THREAD(data: FormData): Promise<string> {
+        const postThread: Promise<string> = API.POST_THREAD(data)
+        createToast(postThread, {
             title: 'Post Thread',
             message: 'Thread successfully posted!',
         })
 
-        return postVIbe
+        return postThread
     }
 
-    async function DELETE_VIBE(targetId: number): Promise<ThreadType> {
-        const deleteThread: Promise<ThreadType> = API.DELETE_VIBE(targetId)
+    async function DELETE_THREAD(targetId: number): Promise<ThreadType> {
+        const deleteThread: Promise<ThreadType> = API.DELETE_THREAD(targetId)
         createToast(deleteThread, {
             title: 'Delete Thread',
             message: 'Thread successfully deleted!',

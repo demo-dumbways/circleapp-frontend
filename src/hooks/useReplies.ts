@@ -14,7 +14,7 @@ function useReplies(
         queryKey: ['thread', targetId],
         queryFn: () => {
             if (targetId) {
-                return API.GET_SINGLE_VIBE(targetId)
+                return API.GET_SINGLE_THREAD(targetId)
             }
 
             return null
